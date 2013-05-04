@@ -1,5 +1,7 @@
 package deliverable;
 
+import valuation.ValuationVisitor;
+
 public class MoneyMarket extends Account {
 
 	
@@ -28,6 +30,11 @@ public class MoneyMarket extends Account {
 		
 		return value;
 		
+	}
+	
+	
+	public void acceptValuationVisitor(ValuationVisitor vistior) {
+		vistior.visitMoneyMarket(this);
 	}
 	
 	

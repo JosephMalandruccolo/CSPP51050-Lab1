@@ -1,5 +1,7 @@
 package deliverable;
 
+import valuation.ValuationVisitor;
+
 public class Stock extends Account {
 
 	//====================================================================
@@ -32,7 +34,9 @@ public class Stock extends Account {
 	 */
 	public double value() { return this.shares * this.price; }
 	
-	
+	public void acceptValuationVisitor(ValuationVisitor visitor) {
+		visitor.visitStock(this);	
+	}
 	
 	
 	//====================================================================

@@ -1,5 +1,7 @@
 package deliverable;
 
+import valuation.ValuationVisitor;
+
 
 /**
  * Abstract base class for Portfolio and Account subclasses
@@ -15,6 +17,8 @@ public abstract class Investment {
 	public abstract double value();
 	
 	public abstract Investment getChild(int n);
+	
+	public abstract void acceptValuationVisitor(ValuationVisitor visitor);
 	
 	
 }
