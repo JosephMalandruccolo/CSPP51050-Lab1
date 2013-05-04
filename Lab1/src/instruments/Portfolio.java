@@ -1,10 +1,16 @@
 package instruments;
 
+import java.rmi.activation.UnknownObjectException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.NoSuchElementException;
+
+import javax.activation.UnsupportedDataTypeException;
+import javax.lang.model.element.UnknownElementException;
+
 import valuation.ValuationVisitor;
 
-public class Portfolio extends Investment {
+public class Portfolio extends Investment implements Iterable<Investment> {
 	
 	
 	//====================================================================
@@ -46,9 +52,9 @@ public class Portfolio extends Investment {
 		
 	}
 
-	@Override
 	public void remove(Investment investment) {
-		// TODO Auto-generated method stub
+		
+		this.children.remove(investment);
 		
 	}
 
@@ -76,8 +82,50 @@ public class Portfolio extends Investment {
 
 	@Override
 	public void acceptValuationVisitor(ValuationVisitor visitor) {
-		// TODO Auto-generated method stub
 		
+		PortfolioIterator iterator = new PortfolioIterator();
+		
+		while (iterator.hasNext()) {
+			
+			Investment i = iterator.next();
+			
+			if (i instanceof Bond) {
+				visitor.visitBond((Bond) i);
+			} 
+			else if (i instanceof Stock) {
+				visitor.visitStock((Stock) i);
+			}
+			else if (i instanceof MoneyMarket) {
+				visitor.visitMoneyMarket((MoneyMarket) i);
+			}
+			else if (i instanceof Portfolio) {
+				i.acceptValuationVisitor(visitor);
+			}
+			else {
+				throw new NoSuchElementException("Object of class " + i.getClass() + " is unknown");
+			}
+		}
 	}
 
+	
+	//====================================================================
+	// =>	ITERATOR
+	//====================================================================
+
+	
+	public Iterator<Investment> iterator() { return new PortfolioIterator(); }
+	
+	
+	private class PortfolioIterator implements Iterator<Investment> {
+		
+		//	current index
+		int current = 0;
+
+		public boolean hasNext() { return this.current < children.size(); }
+
+		public Investment next() { return children.get(this.current++); }
+
+		public void remove() { throw new UnsupportedOperationException("Remove not supported in PortfolioIterator"); }
+		
+	}
 }

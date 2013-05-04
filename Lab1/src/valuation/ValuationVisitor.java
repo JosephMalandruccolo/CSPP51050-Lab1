@@ -2,6 +2,7 @@ package valuation;
 
 import instruments.Bond;
 import instruments.MoneyMarket;
+import instruments.Portfolio;
 import instruments.Stock;
 
 public abstract class ValuationVisitor {
@@ -25,6 +26,7 @@ public abstract class ValuationVisitor {
 	public abstract void visitStock(Stock stock);
 	public abstract void visitMoneyMarket(MoneyMarket market);
 	public abstract void visitBond(Bond bond);
+	public abstract void visitPortfolio(Portfolio portfolio);
 	
 	
 	//====================================================================

@@ -1,12 +1,13 @@
 package instruments;
 
+import accountManagement.AccountIdentifier;
 import valuation.BookValueVisitor;
 
 public class Master {
 	
 	public static void main(String[] args) {
 		
-		
+		/*
 		Stock stock = new Stock(15, 23.59, 1000, "FB");
 		System.out.println("Value: " + stock.value());
 		System.out.println("Account ID: " + stock.getAccountId());
@@ -41,6 +42,45 @@ public class Master {
 		System.out.println("Value of all three: " + bv.totalValueOfSecuritiesVisited());
 		System.out.println("Value of Bond: " + bndV.totalValueOfSecuritiesVisited());
 		
-	}
+		
+		System.out.println("==================");
+		AccountIdentifier id = AccountIdentifier.sharedInstance();
+		System.out.println(id.getAccoundId());
+		System.out.println(id.getAccoundId());
+		System.out.println(id.getPortfolioId());
+		System.out.println(id.getPortfolioId());
+		
+		AccountIdentifier id2 = AccountIdentifier.sharedInstance();
+		System.out.println(id2.getAccoundId());
+		System.out.println(id2.getPortfolioId());
+		*/
+		
+	
+		Portfolio p1 = new Portfolio(AccountIdentifier.sharedInstance().getPortfolioId());
+		Stock s1 = new Stock(AccountIdentifier.sharedInstance().getAccoundId(), 10.10, 100, "FB");
+		Bond b1 = new Bond(AccountIdentifier.sharedInstance().getAccoundId(), 1000.0, 100.0, 5);
+		MoneyMarket m1 = new MoneyMarket(AccountIdentifier.sharedInstance().getAccoundId(), 1000.0, 500);
+		Portfolio p2 = new Portfolio(AccountIdentifier.sharedInstance().getPortfolioId());
+		Stock s2 = new Stock(AccountIdentifier.sharedInstance().getAccoundId(), 100000.0, 1, "MSFT");
+		p2.add(s2);
+		
+		p1.add(s1);
+		p1.add(b1);
+		p1.add(m1);
+		p1.add(p2);
+		
+		BookValueVisitor v = new BookValueVisitor();
+		
+		p1.acceptValuationVisitor(v);
+		
+		System.out.println(v.totalValueOfSecuritiesVisited());
+		
+		
+		
+	}//	end main
+	
+		
+		
+		
 
 }
