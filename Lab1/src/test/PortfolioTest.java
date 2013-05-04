@@ -2,6 +2,7 @@ package test;
 
 import static org.junit.Assert.*;
 
+import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 import instruments.Bond;
@@ -120,14 +121,41 @@ public class PortfolioTest {
 		
 		assertTrue(p.value() == 0.0);
 	}
-
 	
-
+	@Test
+	public void testRemovePortfolio() {
+		Portfolio p = new Portfolio(0);
+		Portfolio p2 = new Portfolio(1);
+		Stock s = new Stock(2, 10.0, 10, "FB");
+		p2.add(s);
+		p.add(p2);
+		p.remove(p2);
+		
+		assertTrue(p.value() == 0.0);
+	}
 	
-
+	
 	@Test
 	public void testIterator() {
-		fail("Not yet implemented");
+		Portfolio p = new Portfolio(0);
+		Portfolio p2 = new Portfolio(1);
+		Stock s = new Stock(2, 10.0, 10, "FB");
+		p2.add(s);
+		p.add(p2);
+		Bond b = new Bond(3, 1000.0, 200.0, 5);
+		p.add(b);
+		
+		Iterator<Investment> iter = p.iterator();
+		int count = 0;
+		while (iter.hasNext()) {
+			count++;
+			iter.next();
+		}
+		//	count should only count top level investments, the method acceptValuationVistior deals with nested Portfolios
+		assertTrue(count == 2);
 	}
+
+	
+	
 
 }
