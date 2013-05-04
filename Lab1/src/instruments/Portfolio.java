@@ -1,13 +1,9 @@
 package instruments;
 
-import java.rmi.activation.UnknownObjectException;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
-
-import javax.activation.UnsupportedDataTypeException;
-import javax.lang.model.element.UnknownElementException;
-
 import valuation.ValuationVisitor;
 
 public class Portfolio extends Investment implements Iterable<Investment> {
@@ -54,7 +50,39 @@ public class Portfolio extends Investment implements Iterable<Investment> {
 
 	public void remove(Investment investment) {
 		
-		this.children.remove(investment);
+		internalRemove(investment);
+		
+		
+		
+	}
+	
+	private boolean internalRemove(Investment investment) {
+		PortfolioIterator iterator = new PortfolioIterator();
+		
+		Investment i;
+		boolean removed = false;
+		while (iterator.hasNext()) {
+			i = iterator.next();
+			
+			//	case where investment to remove is a top-level investment
+			if (i.getUniqueId() == investment.getUniqueId()) {
+				this.children.remove(i);
+				removed = true;
+				break;
+			}
+			
+			
+			//	case where investment may be in a portfolio
+			if (i.getClass() == Portfolio.class) {
+				Portfolio p = (Portfolio)i;
+				removed = p.internalRemove(investment);
+			}
+			
+			if (removed) break;
+			
+		}
+		
+		return removed;
 		
 	}
 
@@ -80,14 +108,16 @@ public class Portfolio extends Investment implements Iterable<Investment> {
 		
 	}
 
-	@Override
+	
 	public void acceptValuationVisitor(ValuationVisitor visitor) {
 		
 		PortfolioIterator iterator = new PortfolioIterator();
 		
+
+		Investment i;
 		while (iterator.hasNext()) {
 			
-			Investment i = iterator.next();
+			i = iterator.next();
 			
 			if (i instanceof Bond) {
 				visitor.visitBond((Bond) i);
@@ -118,7 +148,7 @@ public class Portfolio extends Investment implements Iterable<Investment> {
 	
 	private class PortfolioIterator implements Iterator<Investment> {
 		
-		//	current index
+		//	current index through children array
 		int current = 0;
 
 		public boolean hasNext() { return this.current < children.size(); }

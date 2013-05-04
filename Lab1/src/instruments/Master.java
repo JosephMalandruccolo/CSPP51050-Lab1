@@ -76,6 +76,12 @@ public class Master {
 		System.out.println(v.totalValueOfSecuritiesVisited());
 		
 		
+		p1.remove(s2);
+		BookValueVisitor x = new BookValueVisitor();
+		p1.acceptValuationVisitor(x);
+		System.out.println(x.totalValueOfSecuritiesVisited());
+		
+		
 		
 	}//	end main
 	
