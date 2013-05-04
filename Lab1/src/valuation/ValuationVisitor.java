@@ -8,6 +8,13 @@ import instruments.Stock;
 public abstract class ValuationVisitor {
 	
 	//====================================================================
+	// =>	CONSTANTS
+	//====================================================================
+	public final int BASIS_POINTS_PER_INTEREST_RATE_PERCENT = 10000;
+	
+	
+	
+	//====================================================================
 	// =>	PROPERTIES
 	//====================================================================
 	protected double totalValue;

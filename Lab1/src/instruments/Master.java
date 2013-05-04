@@ -2,6 +2,7 @@ package instruments;
 
 import accountManagement.AccountIdentifier;
 import valuation.BookValueVisitor;
+import valuation.FiveYearNetPresentValueVisitor;
 
 public class Master {
 	
@@ -76,14 +77,10 @@ public class Master {
 		System.out.println(v.totalValueOfSecuritiesVisited());
 		
 		
-		p1.remove(s2);
-		BookValueVisitor x = new BookValueVisitor();
-		p1.acceptValuationVisitor(x);
-		System.out.println(x.totalValueOfSecuritiesVisited());
+		FiveYearNetPresentValueVisitor npv = new FiveYearNetPresentValueVisitor(700);
 		
-		System.out.println(m1.value());
-		m1.addInterestForBalance(m1.value());
-		System.out.println(m1.value());
+		p1.acceptValuationVisitor(npv);
+		System.out.println(npv.totalValueOfSecuritiesVisited());
 		
 		
 	}//	end main
