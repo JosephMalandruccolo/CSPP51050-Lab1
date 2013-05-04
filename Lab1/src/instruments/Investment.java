@@ -11,9 +11,18 @@ import valuation.ValuationVisitor;
 public abstract class Investment {
 	
 	//====================================================================
+	// =>	PROPERTIES
+	//====================================================================
+	private int uniqueIdentifier;
+	
+	
+	
+	//====================================================================
 	// =>	CONSTRUCTOR
 	//====================================================================
-	public Investment() {}
+	public Investment(int id) {
+		this.uniqueIdentifier = id;
+	}
 	
 	
 	//====================================================================
@@ -29,5 +38,13 @@ public abstract class Investment {
 	
 	public abstract void acceptValuationVisitor(ValuationVisitor visitor);
 	
+	
+	
+	//====================================================================
+	// =>	GETTERS / SETTERS
+	//====================================================================
+	public int getUniqueId() {
+		return this.uniqueIdentifier;
+	}
 	
 }

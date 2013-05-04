@@ -6,19 +6,11 @@ package instruments;
  */
 public abstract class Account extends Investment {
 	
-	
-	//====================================================================
-	// =>	INSTANCE PROPERTIES
-	//====================================================================
-	private int accountId;
-	
-	
 	//====================================================================
 	// =>	CONSTRUCTOR
 	//====================================================================
 	public Account(int accountId) {
-		super();
-		this.accountId = accountId;
+		super(accountId);
 	}
 	
 	
@@ -43,7 +35,7 @@ public abstract class Account extends Investment {
 	//====================================================================
 	// =>	GETTERS AND SETTERS
 	//====================================================================
-	public int getAccountId() { return this.accountId; }
+	public int getAccountId() { return this.getUniqueId(); }
 	
 	
 }
