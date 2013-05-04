@@ -1,5 +1,11 @@
 package accountManagement;
 
+/**
+ * Shared Account ID assignment manager
+ * Using this class to assign account IDs avoids account ID collisions
+ * @author Joseph Malandruccolo
+ *
+ */
 public class AccountIdentifier {
 	
 	//====================================================================
