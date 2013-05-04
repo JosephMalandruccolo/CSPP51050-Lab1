@@ -65,13 +65,8 @@ public class PortfolioManager {
 	}
 	
 	
-	public void addInvestmentToPortfolio(Investment i, Portfolio p) {
-		p.add(i);
-	}
-	
-	public void removeInvestmentFromPortfolio(Investment i, Portfolio p) {
-		
-	}
+	public void addInvestmentToPortfolio(Investment i, Portfolio p) { p.add(i); }
+	public void removeInvestmentFromPortfolio(Investment i, Portfolio p) { p.remove(i); }
 	
 	
 }
