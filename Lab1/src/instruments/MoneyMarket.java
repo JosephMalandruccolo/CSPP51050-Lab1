@@ -6,6 +6,13 @@ public class MoneyMarket extends Account {
 
 	
 	//====================================================================
+	// =>	CONSTANTS
+	//====================================================================
+	public final int BASIS_POINTS_PER_INTEREST_RATE_PERCENT = 10000;
+	
+	
+	
+	//====================================================================
 	// =>	PROPERTIES
 	//====================================================================
 	private int dollars;
@@ -63,8 +70,8 @@ public class MoneyMarket extends Account {
 	
 	
 	public void addInterestForBalance(double balance) {
-		double rate = this.interestRateBips / 10000;
-		setDollarsAndCentsFromValue(balance * rate );
+		double rate = (double) (this.interestRateBips) / BASIS_POINTS_PER_INTEREST_RATE_PERCENT;
+		setDollarsAndCentsFromValue(balance * rate + balance );
 	}
 	
 	

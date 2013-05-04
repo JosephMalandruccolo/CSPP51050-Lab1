@@ -81,6 +81,9 @@ public class Master {
 		p1.acceptValuationVisitor(x);
 		System.out.println(x.totalValueOfSecuritiesVisited());
 		
+		System.out.println(m1.value());
+		m1.addInterestForBalance(m1.value());
+		System.out.println(m1.value());
 		
 		
 	}//	end main
