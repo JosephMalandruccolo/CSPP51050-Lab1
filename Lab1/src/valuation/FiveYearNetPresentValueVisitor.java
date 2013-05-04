@@ -46,7 +46,7 @@ public class FiveYearNetPresentValueVisitor extends ValuationVisitor {
 	public void visitStock(Stock stock) { 
 		double currentStockValue = stock.getPrice() * stock.getShares();
 		double futureStockValue = valueAfterCompoundAnualGrowth(currentStockValue, TRAILING_TWENTY_YEAR_STOCK_GROWTH_BIPS, YEARS);
-		this.totalValue += netPresentValue(futureStockValue);
+		this.totalValue += Math.round(netPresentValue(futureStockValue) * 100.0) / 100.0;
 	}
 	
 	
@@ -54,7 +54,7 @@ public class FiveYearNetPresentValueVisitor extends ValuationVisitor {
 		double currentMMvalue = market.value();
 		int rateBips = market.getInterestRate();
 		double futureMMvalue = valueAfterCompoundAnualGrowth(currentMMvalue, rateBips, YEARS);
-		this.totalValue += netPresentValue(futureMMvalue);
+		this.totalValue += Math.round(netPresentValue(futureMMvalue) * 100.0) / 100.0;
 	}
 	
 	
@@ -63,7 +63,7 @@ public class FiveYearNetPresentValueVisitor extends ValuationVisitor {
 		double coupon = bond.getCoupon();
 		double maturity = (bond.getMaturity() <= YEARS) ? bond.getMaturity() : YEARS;
 		double futureValue = currentPrinciple += coupon * maturity;
-		this.totalValue += netPresentValue(futureValue);
+		this.totalValue += Math.round(netPresentValue(futureValue) * 100.0) / 100.0;
 	}
 	
 	public void visitPortfolio(Portfolio portfolio) {
