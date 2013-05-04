@@ -5,6 +5,11 @@ import instruments.MoneyMarket;
 import instruments.Portfolio;
 import instruments.Stock;
 
+/**
+ * FiveYearNetPresentValueVisitor values each Investment using a five year NPV calculation
+ * @author Joseph Malandruccolo
+ *
+ */
 public class FiveYearNetPresentValueVisitor extends ValuationVisitor {
 	
 	
@@ -25,6 +30,10 @@ public class FiveYearNetPresentValueVisitor extends ValuationVisitor {
 	//====================================================================
 	// =>	CONSTRUCTOR
 	//====================================================================
+	/**
+	 * Create a FiveYearNetPresentValueVisitor
+	 * @param discountRateBips - the expected discount rate over the next five years
+	 */
 	public FiveYearNetPresentValueVisitor(int discountRateBips) {
 		super();
 		this.discountRateBips = discountRateBips;

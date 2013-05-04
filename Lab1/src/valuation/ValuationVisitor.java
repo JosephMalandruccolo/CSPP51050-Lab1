@@ -5,6 +5,11 @@ import instruments.MoneyMarket;
 import instruments.Portfolio;
 import instruments.Stock;
 
+/**
+ * Abstract class representing a valuation methodology for Investments
+ * @author Joseph Malandruccolo
+ *
+ */
 public abstract class ValuationVisitor {
 	
 	//====================================================================

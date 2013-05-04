@@ -18,12 +18,21 @@ public class Portfolio extends Investment implements Iterable<Investment> {
 	//====================================================================
 	// =>	CONSTRUCTORS
 	//====================================================================
+	/**
+	 * Construct an empty Portfolio
+	 * @param id - unique identifier
+	 */
 	public Portfolio(int id) {
 		super(id);
 		this.children = new ArrayList<Investment>();
 	}
 	
 	
+	/**
+	 * Construct a Portfolio with an Investment
+	 * @param id - unique identifier
+	 * @param instrument - an Investment to add to the Portfolio
+	 */
 	public Portfolio(int id, Investment instrument) {
 		super(id);
 		this.children = new ArrayList<Investment>();
@@ -31,6 +40,11 @@ public class Portfolio extends Investment implements Iterable<Investment> {
 	}
 	
 	
+	/**
+	 * Construct a Portfolio with another Portfolio
+	 * @param id - unique identifier
+	 * @param p - a Portfolio
+	 */
 	public Portfolio(int id, Portfolio p) {
 		super(id);
 		this.children = new ArrayList<Investment>();
@@ -42,20 +56,27 @@ public class Portfolio extends Investment implements Iterable<Investment> {
 	//====================================================================
 	// =>	PUBLIC API
 	//====================================================================
-	
+	/**
+	 * add an Investment to the Portfolio
+	 */
 	public void add(Investment investment) {
 		this.children.add(investment);
 		
 	}
 
-	public void remove(Investment investment) {
-		
-		internalRemove(investment);
-		
-		
-		
-	}
 	
+	/**
+	 * remove an Investment from the Portfolio
+	 * if the Investment is in any Portfolio within the this Portfolio, the investment will be removed
+	 */
+	public void remove(Investment investment) { internalRemove(investment); }
+	
+	
+	/**
+	 * Private implementation of remove investment
+	 * @param investment - the Investment to remove
+	 * @return true if the Investment was removed, false otherwise
+	 */
 	private boolean internalRemove(Investment investment) {
 		PortfolioIterator iterator = new PortfolioIterator();
 		
@@ -64,7 +85,7 @@ public class Portfolio extends Investment implements Iterable<Investment> {
 		while (iterator.hasNext()) {
 			i = iterator.next();
 			
-			//	case where investment to remove is a top-level investment
+			//	case where Investment to remove is a top-level investment
 			if (i.getUniqueId() == investment.getUniqueId()) {
 				this.children.remove(i);
 				removed = true;
@@ -72,7 +93,8 @@ public class Portfolio extends Investment implements Iterable<Investment> {
 			}
 			
 			
-			//	case where investment may be in a portfolio
+			//	case where investment may be in a Portfolio
+			//	check the contents of the Portfolio for the Investment to remove
 			if (i.getClass() == Portfolio.class) {
 				Portfolio p = (Portfolio)i;
 				removed = p.internalRemove(investment);
@@ -96,12 +118,31 @@ public class Portfolio extends Investment implements Iterable<Investment> {
 	}
 
 	
+	/**
+	 * Find an Investment in the Portfolio
+	 * @param id - unique identifier of the investment
+	 * @return - the Investment
+	 */
 	public Investment getChild(int id) {
 		
 		for (Investment i : this.children) {
-			if (i.getUniqueId() == id) {
-				return i;
+			
+			if (i instanceof Bond) {
+				if (i.getUniqueId() == id) return i;
+				
+			} 
+			else if (i instanceof Stock) {
+				if (i.getUniqueId() == id) return i;
 			}
+			else if (i instanceof MoneyMarket) {
+				if (i.getUniqueId() == id) return i;
+			}
+			else if (i instanceof Portfolio) return i.getChild(id);
+			else {
+				throw new NoSuchElementException("Object of class " + i.getClass() + " is unknown");
+			}
+			
+			
 		}
 		
 		throw new NoSuchElementException("This portfolio does not contain a portfolio or account with id : " + id);
@@ -109,6 +150,9 @@ public class Portfolio extends Investment implements Iterable<Investment> {
 	}
 
 	
+	/**
+	 * Accept a ValuationVisitor to value the Portfolio
+	 */
 	public void acceptValuationVisitor(ValuationVisitor visitor) {
 		
 		PortfolioIterator iterator = new PortfolioIterator();
@@ -141,8 +185,9 @@ public class Portfolio extends Investment implements Iterable<Investment> {
 	//====================================================================
 	// =>	ITERATOR
 	//====================================================================
-
-	
+	/**
+	 * Iterator through a Portfolio
+	 */
 	public Iterator<Investment> iterator() { return new PortfolioIterator(); }
 	
 	

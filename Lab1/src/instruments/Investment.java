@@ -29,13 +29,27 @@ public abstract class Investment {
 	// =>	ABSTRACT METHODS
 	//====================================================================
 	public abstract void add(Investment investment);
-	
 	public abstract void remove(Investment investment);
 	
+	/**
+	 * @return - the value of an Investment and any sub-Investments
+	 */
 	public abstract double value();
 	
+	
+	/**
+	 * Get a child identified by a parameter
+	 * @param n - an identifier for a child
+	 * @return the child Investment
+	 */
 	public abstract Investment getChild(int n);
 	
+	
+	/**
+	 * There may be many ways to value an Investment
+	 * By accepting a valuation visitor, the Investment object may be valued using an arbitrary valuation methodology
+	 * @param visitor - a ValuationVisitor
+	 */
 	public abstract void acceptValuationVisitor(ValuationVisitor visitor);
 	
 	

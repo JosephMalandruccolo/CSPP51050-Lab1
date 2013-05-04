@@ -22,6 +22,12 @@ public class MoneyMarket extends Account {
 	//====================================================================
 	// =>	CONSTRUCTOR
 	//====================================================================
+	/**
+	 * Constructor for a MoneyMarket Investment
+	 * @param accountId - unique identifier
+	 * @param initialValue - initial value
+	 * @param basisPoints - annual interest rate in basis points
+	 */
 	public MoneyMarket(int accountId, double initialValue, int basisPoints) {
 		super(accountId);
 		setDollarsAndCentsFromValue(initialValue);
@@ -45,6 +51,10 @@ public class MoneyMarket extends Account {
 	}
 	
 	
+	/**
+	 * add an amount to the MoneyMarket Investment
+	 * @param amount - amount to be added, must be greater than or equal to 0
+	 */
 	public void deposit(double amount) {
 		
 		if (amount <= 0) {
@@ -56,6 +66,10 @@ public class MoneyMarket extends Account {
 	}
 	
 	
+	/**
+	 * remove an amount from the MoneyMarket Investment
+	 * @param amount - amount to removed, must greater than or equal to 0
+	 */
 	public void withdraw(double amount) {
 		if (amount <= 0) {
 			throw new IllegalArgumentException("Withdraw not defined for amounts less than or equal to 0");
@@ -69,9 +83,13 @@ public class MoneyMarket extends Account {
 	}
 	
 	
+	/**
+	 * Add interest to this account
+	 * @param balance - the balance to which this MoneyMarket's interest rate applies (may be average balance, current balance, etc.)
+	 */
 	public void addInterestForBalance(double balance) {
 		double rate = (double) (this.interestRateBips) / BASIS_POINTS_PER_INTEREST_RATE_PERCENT;
-		setDollarsAndCentsFromValue(balance * rate + balance );
+		setDollarsAndCentsFromValue(balance * rate + this.value() );
 	}
 	
 	

@@ -5,6 +5,11 @@ import instruments.Portfolio;
 import java.util.HashMap;
 import valuation.BookValueVisitor;
 
+/**
+ * PortfolioManager encapsulates various methods of portfolio creation and management
+ * @author Joseph Malandruccolo
+ *
+ */
 public class PortfolioManager {
 	
 	//====================================================================

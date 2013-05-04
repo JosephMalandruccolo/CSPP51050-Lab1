@@ -15,9 +15,13 @@ public class Stock extends Account {
 	//====================================================================
 	// =>	CONSTRUCTOR
 	//====================================================================
-	
-	
-	
+	/**
+	 * Construct a Stock
+	 * @param accountId - unique identifier
+	 * @param price - share price
+	 * @param shares - number of shares
+	 * @param ticker - ticker symbol
+	 */
 	public Stock(int accountId, double price, int shares, String ticker) {
 		super(accountId);
 		this.price = price;

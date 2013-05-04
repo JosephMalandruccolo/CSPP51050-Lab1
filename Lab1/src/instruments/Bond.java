@@ -17,6 +17,13 @@ public class Bond extends Account {
 	//====================================================================
 	// =>	CONSTRUCTOR
 	//====================================================================
+	/**
+	 * Constructor for a Bond
+	 * @param accountId - unique identifier
+	 * @param principle - amount of the loan
+	 * @param annualCoupon - annual payment
+	 * @param maturity - number of years the payment is made
+	 */
 	public Bond(int accountId, double principle, double annualCoupon, int maturity) {
 		super(accountId);
 		this.principle = principle;

@@ -5,6 +5,11 @@ import instruments.MoneyMarket;
 import instruments.Portfolio;
 import instruments.Stock;
 
+/**
+ * BookValueVisitor can value Investments at book value
+ * @author Joseph Malandruccolo
+ *
+ */
 public class BookValueVisitor extends ValuationVisitor {
 
 	
